@@ -1,0 +1,5 @@
+INDEX VERSION 1.126
+C:\Users\FRANKLIN\Documents\GitHub\CSNnews\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2231346107.index
+\CSNnews\src
+C:\Users\FRANKLIN\Documents\GitHub\CSNnews\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4014979398.index
+\CSNnews\src

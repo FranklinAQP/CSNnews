@@ -1,11 +1,9 @@
 package com.modelo;
-import java.util.*;
-//import java.util.Date;
 
+import java.util.*;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Inheritance;
-
 
 @PersistenceCapable
 @Inheritance(customStrategy = "complete-table")

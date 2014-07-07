@@ -1,16 +1,26 @@
 package com.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
-import javax.jdo.PersistenceManager;
 import javax.servlet.http.*;
 
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.modelo.Usuario;
+import com.modelo.DataStoreConection;
+
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 @SuppressWarnings("serial")
 public class RegisterServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -95,48 +105,68 @@ timer.start();
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {		
-		String nombre = req.getParameter("nombre");
-		String nombreU = req.getParameter("username");
-		String correo = req.getParameter("correo");
-		String correo2 = req.getParameter("correo");
-		//String interes = req.getParameter("interes");
+		String username = req.getParameter("username");
+		String nombre = req.getParameter("nombre");		
+		String correo = req.getParameter("correo");		
+		String sexo = req.getParameter("sexo");
+		String fechan = req.getParameter("fechan");
+		String correo2 = req.getParameter("correo2");
 		String passa = req.getParameter("pass_a");
 		String passb = req.getParameter("pass_b");
-		if(!passa.equals(passb)){					
-			resp.sendRedirect("registro.jsp"); 	       
+		String intereses = req.getParameter("intereses");		
+		
+		if(!passa.equals(passb)){//Si el passworda varia con su passwordb de verificacion se vuelve al registro
+			
+			resp.sendRedirect("notificaciones.jsp?m=password_incorrecto"); 	
+			
 		}else{
-			resp.setContentType("text/html");			
-			Usuario nuevo = new Usuario(nombreU, nombre, correo, correo2, passa);			
-			PersistenceManager pm = PersistenceMF.get().getPersistenceManager();
-			try{
-				pm.makePersistent(nuevo);
-				req.getRequestDispatcher("index.jsp").forward(req,resp);
-
-			}catch(Exception e){
-				System.out.println(e);
-				resp.getWriter().println("Ocurrio un error, <a href='registro.jsp'>vuelva a intentarlo</a>");
-			}finally{
-				pm.close();
-			}
-			/*PrintWriter out = resp.getWriter();
-			resp.setContentType("text/html");
-			out.println("<html>");
-			out.println("<head><title>Respuesta de Formulario </title></head>");
-			out.println("<body>");		
-			out.println("<h1>Datos Ingresados</h1>");
-			if(passa.equals(passb)){
-				out.println("pasword coincidentes </br>");
-			}
-			out.println("nombre: "+ nombre + "</br>");
-			out.println("username: "+ username + "</br>");
-			out.println("correo: "+ correo + "</br>");
-			out.println("pass: "+ passa + "</br>");
-			out.println("pass: "+ passb + "</br>");
-			out.println("interes: "+ interes+ "</br>");
-			out.println("</body></html>");
-			*/
-			/*resp.setContentType("text/plain");
-			resp.getWriter().println("Hello, world");*/
+			DataStoreConection obj = new DataStoreConection();	
+			Integer val_correo = obj.existe_correo_validado(correo); 
+			if(val_correo==0){		
+				Integer longitud=10;
+				String cod_validacion = "";
+				long milis = new java.util.GregorianCalendar().getTimeInMillis();
+				Random r = new Random(milis);
+				int i = 0;
+				while ( i < longitud){
+					char c = (char)r.nextInt(255);
+					if ( (c >= '0' && c <='9') || (c >='A' && c <='Z') ){
+						cod_validacion += c;
+						i ++;
+					}
+				}
+				//ingreso datos de nuevo usuario al datastore
+				obj.insert_usuario(username, nombre, correo, sexo, fechan, correo2, passa, intereses, cod_validacion);
+				
+				//a continuacion envio de mensaje a su correo para validacion de correo
+				Properties props = new Properties();
+				Session session = Session.getDefaultInstance(props, null);
+				String msgBody = "Su cuenta en CSNnews ha sido creada satisfactoriamente, con los siguientes datos: \n";
+				msgBody += "username: "+ username +"\n";
+				msgBody += "password: "+ passa +"\n";
+				msgBody += "Porfavor haga click en el siguiente enlace o abralo en una nueva pestaña de su navegador ";
+				msgBody += "para validar su correo y tener acceso a los beneficios de su cuenta: \n http://csvistas12.appspot.com/csnnews?user="+username+"&correo="+ correo +"&cod="+cod_validacion+"&validate=true";
+				try {
+					Message msg = new MimeMessage(session);
+					msg.setFrom(new InternetAddress("redinfoaqp@gmail.com", "CSNnews"));
+					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(correo, nombre));
+					msg.setSubject("Su cuenta en CSNnews ha sido creada");
+					msg.setText(msgBody);
+					Transport.send(msg);
+	
+				} catch (AddressException e) {
+					System.out.println(e);
+					resp.getWriter().println("Ocurrio un error en la direccion del correo, <a href='registro.jsp'>vuelva a intentarlo</a>");
+				} catch (MessagingException e) {
+					System.out.println(e);
+					resp.getWriter().println("Ocurrio un error en el mensaje del correo, <a href='registro.jsp'>vuelva a intentarlo</a>");
+				}
+					resp.sendRedirect("notificaciones.jsp?m=registrado");
+			}else if(val_correo==1){
+				resp.sendRedirect("notificaciones.jsp?m=no_validado");
+			}else{
+				resp.sendRedirect("notificaciones.jsp?m=correo_utilizado");
 			}
 		}
+	}
 }

@@ -19,11 +19,29 @@
 			  			<h1>Registrarse</h1>					
 						<form class="contact_form" action="/registro" method="post">
 						    <ul>
-						     	<li>
+						       <li>
 						           <label for="username"><img src="/imagenes/_user.png" class="icono_img">Username:</label>
 						           <input name="username" type="text" placeholder="Alias" required="">
 						       </li>
-	
+						       <li>
+						           <label for="name">Nombre:</label>
+						           <input name="nombre" type="text" placeholder="Johan Ricardo" required>
+						       </li>
+						       <li>
+						           <label for="email">Email:</label>
+						           <input type="email" name="correo" placeholder="jricardo@ejemplo.com" required>
+						       </li>
+						       <li>
+						       		<label for="sexo">Sexo:</label>
+						       		<select name="sexo" required>
+						       			<option value="masculino">Masculino</option>
+						       			<option value="femenino">Femenino</option>
+						       		</select>
+						       </li>	
+						       <li>
+						       		<label for="fechan">Fecha de Nacimiento:</label>
+						       		<input type="date" name="fechan" required>
+						       </li>
 						     	<li>
 						           <label for="password"><img src="/imagenes/_pass.png" class="icono_img">Password:</label>
 						           <input name="pass_a" type="password" placeholder="*********" required>
@@ -34,17 +52,15 @@
 						           <input name="pass_b" type="password" placeholder="*********" required>
 						       </li>
 	
+						      
+						       
 						       <li>
-						           <label for="name">Nombre:</label>
-						           <input name="nombre" type="text" placeholder="Johan Ricardo" required>
-						       </li>
-						       <li>
-						           <label for="email">Email:</label>
-						           <input type="email" name="correo" placeholder="jricardo@ejemplo.com" required>
+						           <label for="email2">Email de respaldo:</label>
+						           <input type="email" name="correo2" placeholder="jricardo2@ejemplo.com" required>
 						       </li>
 						       <li>
 						           <label for="website">Intereses:</label>
-									<select name="interes">
+									<select name="intereses">
 									  <option value="deportes">Deportes</option>
 									  <option value="internacionales">Internacionales</option>
 									  <option value="tecnologia">Tecnología</option>
