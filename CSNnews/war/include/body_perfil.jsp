@@ -20,24 +20,38 @@
 						    <ul>
 						     	<li>
 						           <label for="username"><img src="/imagenes/_user.png" class="icono_img">Username:</label>
-						           <input type="text" value="MiAlias" readonly>
+						           <input name="username" type="text" value="MiAlias" readonly>
 						       </li>
 	
 						       <li>
 						           <label for="name">Nombre:</label>
-						           <input type="text" value="Johan Ricardo" required="">
+						           <input name="nombre" type="text" value="Johan Ricardo" required="">
 						       </li>
 						       <li>
 						           <label for="email">Email:</label>
-						           <input type="email" name="email" value="jricardo@ejemplo.com" readonly>
+						           <input name="correo" type="email" name="email" value="jricardo@ejemplo.com" readonly>
+						       </li>
+						       <li>
+						       		<label for="sexo">Sexo:</label>
+						       		<select name="sexo" required>
+						       			<option value="masculino">Masculino</option>
+						       			<option value="femenino">Femenino</option>
+						       		</select>
+						       </li>	
+						       <li>
+						       		<label for="fechan">Fecha de Nacimiento:</label>
+						       		<input type="date" name="fechan" required>
+						       </li>
+						       <li>
+						           <label for="email2">Email de respaldo:</label>
+						           <input type="email" name="correo2" placeholder="micorreo@ejemplo.com" required>
 						       </li>
 						       <li>
 						           <label for="website">Intereses:</label>
-									<select>
+									<select name="intereses">
 									  <option value="deportes">Deportes</option>
 									  <option value="internacionales">Internacionales</option>
-									  <option value="tecnologia">Tecnología</option>
-									  
+									  <option value="tecnologia">Tecnología</option>									  
 									</select>
 						       </li>
 	
@@ -70,26 +84,10 @@
 				</section>
 				
 			</section>	
+			<!-- fin de contenido central -->
 			
 			<!-- barra derecha -->
-			<div class="rightcontent">
-				<aside >
-					<h1>Destacados</h1>
-					<div id="destacadas">Loading...</div>						
-						<!-- Llamamos al archivo Loaddestacadas.js para cargar las noticias -->
-						
-				</aside>
-				<select id="seleccion_cat">
-					<option value ="correo">Correo</option>
-					<option value ="Otro diario">Otro diario</option>
-				</select>
-				<div id="categoriasdiv">  Categorias... </div>
-			
-				<aside >
-					<figure>
-						<img class="img_banner" src="imagenes/logo_CSNnews.jpg" alt="Logo de CSNnews" />
-					</figure>
-				</aside>
-			</div>
+			<%@ include file="/include/rightcontent.jsp" %>
+			<!-- fin de barra derecha -->
 			
 		</section>

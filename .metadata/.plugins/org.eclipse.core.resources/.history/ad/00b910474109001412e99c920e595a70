@@ -1,0 +1,28 @@
+<script type="text/javascript">
+<!--
+function traduccion(palabra){
+	if(palabra[0] == "A"){
+		return "el array empieza con la letra A";
+	}else if(palabra[0] == "B"){
+		return "el array empieza con la letra B";
+	}else if(palabra[0] == "B" && palabra[1] == "C"){
+		return "el array empieza con las letras BC";
+	}else
+		return "el array empieza con la letra C";
+}
+function validateER(campo) {
+    var patron = /^AUG(([CGAU]{3}){3,})((UGA)|(UAA)|(UAG))$/;
+    var errorMessage = 'Patron Incorrecto.';
+    if ((campo.value.match(patron)) && (campo.value!='')) {
+        alert("Patron Correcto");
+	/*var texto= campo.value;	 
+	var resultado = traduccion(texto);
+	document.getElementById("demo").innerHTML = resultado;
+	*/
+    } else {
+        alert(errorMessage);
+        campo.focus();
+    } 
+}
+//-->
+</script>

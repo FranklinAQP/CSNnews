@@ -21,15 +21,15 @@
 						    <ul>
 						       <li>
 						           <label for="username"><img src="/imagenes/_user.png" class="icono_img">Username:</label>
-						           <input name="username" type="text" placeholder="Alias" required="">
+						           <input name="username" type="text" placeholder="Alias" required="" autofocus>
 						       </li>
 						       <li>
 						           <label for="name">Nombre:</label>
-						           <input name="nombre" type="text" placeholder="Johan Ricardo" required>
+						           <input name="nombre" type="text" placeholder="Nombre" required>
 						       </li>
 						       <li>
 						           <label for="email">Email:</label>
-						           <input type="email" name="correo" placeholder="jricardo@ejemplo.com" required>
+						           <input type="email" name="correo" placeholder="micorreo@gmail.com" pattern="[A-Za-z0-9\_\-\.]{3,}@gmail\.com" title="Solo Correo de Gmail" required>
 						       </li>
 						       <li>
 						       		<label for="sexo">Sexo:</label>
@@ -44,19 +44,19 @@
 						       </li>
 						     	<li>
 						           <label for="password"><img src="/imagenes/_pass.png" class="icono_img">Password:</label>
-						           <input name="pass_a" type="password" placeholder="*********" required>
+						           <input id="pass_a" name="pass_a" type="password" placeholder="*********" pattern="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6})$" title="Seis caracteres (letras y numeros) " required>
 						       </li>
 	
 						       <li>
 						           <label for="password"><img src="/imagenes/_pass.png" class="icono_img">Confirmar Password:</label>
-						           <input name="pass_b" type="password" placeholder="*********" required>
+						           <input name="pass_b" type="password" placeholder="*********" pattern="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6})$" title="Seis caracteres (letras y numeros) " onblur="validar(this);" required>
 						       </li>
 	
 						      
 						       
 						       <li>
 						           <label for="email2">Email de respaldo:</label>
-						           <input type="email" name="correo2" placeholder="jricardo2@ejemplo.com" required>
+						           <input type="email" name="correo2" placeholder="micorreo@ejemplo.com" required>
 						       </li>
 						       <li>
 						           <label for="website">Intereses:</label>
@@ -73,32 +73,19 @@
 						        </li>
 						    </ul>
 						</form>
+						<script type="text/javascript">
+							<%@ include file="/JavaScript/valida_password.js" %>
+						</script>
 			  		</div>	
 					</section>
 				
 				</section>
 				
 			</section>	
+			<!-- fin de contenido central -->
 			
 			<!-- barra derecha -->
-			<div class="rightcontent">
-				<aside >
-					<h1>Destacados</h1>
-					<div id="destacadas">Loading...</div>						
-						<!-- Llamamos al archivo Loaddestacadas.js para cargar las noticias -->
-						
-				</aside>
-				<select id="seleccion_cat">
-					<option value ="correo">Correo</option>
-					<option value ="Otro diario">Otro diario</option>
-				</select>
-				<div id="categoriasdiv">  Categorias... </div>
-			
-				<aside >
-					<figure>
-						<img class="img_banner" src="imagenes/logo_CSNnews.jpg" alt="Logo de CSNnews" />
-					</figure>
-				</aside>
-			</div>
+			<%@ include file="/include/rightcontent.jsp" %>
+			<!-- fin de barra derecha -->
 			
 		</section>

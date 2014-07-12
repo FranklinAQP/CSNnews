@@ -1,18 +1,10 @@
 package com.controlador;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-
 import javax.servlet.http.*;
-
-import com.google.appengine.api.datastore.*;
-import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.modelo.DataStoreConection;
-
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -21,90 +13,15 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/* Este servlet registrará un nuevo usuario y enviará mensaje de validación a su correo*/
+
 @SuppressWarnings("serial")
 public class RegisterServlet extends HttpServlet {
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		//creando entidad sin identificador
-		Entity e = new Entity("Persona");
-		e.setProperty("Username", "Franklin");
-		e.setProperty("Email", "frank_lacg@hotmail.com");
-		e.setProperty("Edad", 31);
 		
-		ds.put(e);
-		
-		//creando entidad con identificador
-		Entity user = new Entity("User",414);
-		user.setProperty("id_user", 414);
-		user.setProperty("Username", "Pedro2");
-		user.setProperty("Password", "password2");
-		user.setProperty("Email", "pedro2@gmail.com");
-		user.setProperty("Edad", "22");
-		//Creando o editando una entidad
-		ds.put(user);
-		
-		//creando claves
-		Key key = KeyFactory.createKey("User", 415);
-		System.out.println("La clave es: "+key);
-		
-		//extrayendo datos
-		@SuppressWarnings("deprecation")
-		Query q = new  Query ("User").addFilter("Edad", FilterOperator.GREATER_THAN, 23);
-		PreparedQuery pq = ds.prepare(q);
-		for(Entity u1:pq.asIterable()){
-			String id_user=u1.getProperty("id_user").toString();
-			String usename=u1.getProperty("Username").toString();
-			String password=u1.getProperty("Password").toString();
-			System.out.println("El usuario id: "+id_user+" de Nombre: "+usename+ "Password: "+password);
-		}
-		
-		
-		
-		/*
-		//Obteneindo una entidad
-		try {
-			Entity e5 = ds.get(key);
-			System.out.println("La entidad e5 es: "+e5);
-		} catch (EntityNotFoundException e5) {			
-			e5.printStackTrace();
-		}*/
-		/*
-		//eliminando una entidad
-		ds.delete(key);
-		*/
-		//creando una entidad de grupo
-		//Entity emp = new Entity("Empleado",user.getKey());
-		
-		//creando clave ancestro
-		Key key1 = new KeyFactory.Builder("User", "GratGrandPa").addChild("User", "GrandPa").addChild("User", "Pa").getKey();
-		System.out.println("La clave es: "+key1);
-		
-		//grupo de entidades
-		Entity e1 = new Entity("Emp1");
-		Entity e2 = new Entity("Emp2");
-		Entity e3 = new Entity("Emp3");
-		List<Entity> e4 = Arrays.asList(e1, e2, e3);
-		ds.put(e4);
-		
-		/*Actualizar cada n segundos
-		 * Timer timer = new Timer (tiempoEnMilisegundos, new ActionListener () 
-{ 
-    public void actionPerformed(ActionEvent e) 
-    { 
-        // Aquí el código que queramos ejecutar.
-     } 
-}); 
-...
-
-timer.start();
-		 * */
-		
-		resp.setContentType("text/plain");
-		resp.getWriter().println("Hola, Bienvenido al Datastore");
-	}
+	/*Recibe y procesa datos del formulario enviados por el método post*/
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {		
+			throws IOException {	
+		//capturamos valores de variables
 		String username = req.getParameter("username");
 		String nombre = req.getParameter("nombre");		
 		String correo = req.getParameter("correo");		
@@ -114,15 +31,21 @@ timer.start();
 		String passa = req.getParameter("pass_a");
 		String passb = req.getParameter("pass_b");
 		String intereses = req.getParameter("intereses");		
-		
-		if(!passa.equals(passb)){//Si el passworda varia con su passwordb de verificacion se vuelve al registro
-			
-			resp.sendRedirect("notificaciones.jsp?m=password_incorrecto"); 	
-			
+		//Verificamos si el password ingresado coincide con su password de verificación
+		if(!passa.equals(passb)){
+			//Si no coincide se redirecciona a notificaciones con m=password_incorrecto para el mensaje correspondiente
+			resp.sendRedirect("notificaciones.jsp?m=password_incorrecto"); 				
 		}else{
+			//Si existe se crea un objeto de conexion al datastore
 			DataStoreConection obj = new DataStoreConection();	
+			//Se comprueba en el datastore si existe algun correo identico validado:
+			//no existe correo identico=0
+			//existe correo identico no validado=1
+			//existe correo identico validado=2
 			Integer val_correo = obj.existe_correo_validado(correo); 
 			if(val_correo==0){		
+				//creamos una variable que guardara una seuencia de 10 caracteres 
+				//que sera el codigo para validacion de correo
 				Integer longitud=10;
 				String cod_validacion = "";
 				long milis = new java.util.GregorianCalendar().getTimeInMillis();
@@ -135,21 +58,25 @@ timer.start();
 						i ++;
 					}
 				}
-				//ingreso datos de nuevo usuario al datastore
+				//ingreso de datos de nuevo usuario al datastore sin validación de correo
 				obj.insert_usuario(username, nombre, correo, sexo, fechan, correo2, passa, intereses, cod_validacion);
 				
-				//a continuacion envio de mensaje a su correo para validacion de correo
+				//a continuacion se envia mensaje a su correo para validacion de correo
 				Properties props = new Properties();
 				Session session = Session.getDefaultInstance(props, null);
 				String msgBody = "Su cuenta en CSNnews ha sido creada satisfactoriamente, con los siguientes datos: \n";
 				msgBody += "username: "+ username +"\n";
 				msgBody += "password: "+ passa +"\n";
 				msgBody += "Porfavor haga click en el siguiente enlace o abralo en una nueva pestaña de su navegador ";
-				msgBody += "para validar su correo y tener acceso a los beneficios de su cuenta: \n http://csvistas12.appspot.com/csnnews?user="+username+"&correo="+ correo +"&cod="+cod_validacion+"&validate=true";
+				msgBody += "para validar su correo y tener acceso a los beneficios de su cuenta: \n http://csvistas12.appspot.com/csnnews?correo="+ correo +"&cod="+cod_validacion;
 				try {
+					//se crea un objeto para javamail
 					Message msg = new MimeMessage(session);
+					//se coloca datos del remitente (correo, nombre)
 					msg.setFrom(new InternetAddress("redinfoaqp@gmail.com", "CSNnews"));
+					//se coloca datos del destinatario
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(correo, nombre));
+					//Se coloca el titulo del mensaje 
 					msg.setSubject("Su cuenta en CSNnews ha sido creada");
 					msg.setText(msgBody);
 					Transport.send(msg);
@@ -163,8 +90,10 @@ timer.start();
 				}
 					resp.sendRedirect("notificaciones.jsp?m=registrado");
 			}else if(val_correo==1){
+				//Si el correo ya existe pero no ha sido validado se redirecciona a notificaciones
 				resp.sendRedirect("notificaciones.jsp?m=no_validado");
 			}else{
+				//Si el correo ya existe y ha sido validado se redirecciona a notificaciones
 				resp.sendRedirect("notificaciones.jsp?m=correo_utilizado");
 			}
 		}

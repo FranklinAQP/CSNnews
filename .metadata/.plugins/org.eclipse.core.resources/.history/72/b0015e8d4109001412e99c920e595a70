@@ -1,0 +1,104 @@
+<section class="contenedor">
+		
+			<!-- barra izquierda inicio -->
+			<%@ include file="/include/leftcontent.jsp" %>
+			<!-- fin -->
+		
+			<!-- contenido central -->			
+			<section class="maincontent">
+				<section class="content">					
+					<div id="feeddiv"></div>						
+						<!-- Llamamos al archivo FindFeed.js para buscar las noticias -->
+						<script type="text/javascript">
+							<%@ include file="/JavaScript/FindFeeds.js" %>
+						</script>
+						
+					<section class="other_content">
+					<div id="lcontain">
+						
+			  			<h1>Registrarse</h1>					
+						<form class="contact_form" action="/registro" method="post">
+						    <ul>
+						       <li>
+						           <label for="username"><img src="/imagenes/_user.png" class="icono_img">Username:</label>
+						           <input name="username" type="text" placeholder="Alias" required="" autofocus>
+						       </li>
+						       <li>
+						           <label for="name">Nombre:</label>
+						           <input name="nombre" type="text" placeholder="Nombre" required>
+						       </li>
+						       <li>
+						           <label for="email">Email:</label>
+						           <input type="email" name="correo" placeholder="micorreo@gmail.com" pattern="[A-Za-z0-9\_\-\.]{3,}@gmail\.com" title="Solo Correo de Gmail" required>
+						       </li>
+						       <li>
+						       		<label for="sexo">Sexo:</label>
+						       		<select name="sexo" required>
+						       			<option value="masculino">Masculino</option>
+						       			<option value="femenino">Femenino</option>
+						       		</select>
+						       </li>	
+						       <li>
+						       		<label for="fechan">Fecha de Nacimiento:</label>
+						       		<input type="date" name="fechan" required>
+						       </li>
+						     	<li>
+						           <label for="password"><img src="/imagenes/_pass.png" class="icono_img">Password:</label>
+						           <input id="pass_a" name="pass_a" type="password" placeholder="*********" pattern="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6})$" title="Seis caracteres (letras y numeros) " required>
+						       </li>
+	
+						       <li>
+						           <label for="password"><img src="/imagenes/_pass.png" class="icono_img">Confirmar Password:</label>
+						           <input name="pass_b" type="password" placeholder="*********" pattern="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6})$" title="Seis caracteres (letras y numeros) " required>
+						       </li>
+	
+						      
+						       
+						       <li>
+						           <label for="email2">Email de respaldo:</label>
+						           <input type="email" name="correo2" placeholder="micorreo@ejemplo.com" required>
+						       </li>
+						       <li>
+						           <label for="website">Intereses:</label>
+									<select name="intereses">
+									  <option value="deportes">Deportes</option>
+									  <option value="internacionales">Internacionales</option>
+									  <option value="tecnologia">Tecnología</option>
+									  
+									</select>
+						       </li>
+	
+						        <li>
+						          <button class="submit" type="submit">Enviar</button>
+						        </li>
+						    </ul>
+						</form>
+			  		</div>	
+					</section>
+				
+				</section>
+				
+			</section>	
+			
+			<!-- barra derecha -->
+			<div class="rightcontent">
+				<aside >
+					<h1>Destacados</h1>
+					<div id="destacadas">Loading...</div>						
+						<!-- Llamamos al archivo Loaddestacadas.js para cargar las noticias -->
+						
+				</aside>
+				<select id="seleccion_cat">
+					<option value ="correo">Correo</option>
+					<option value ="Otro diario">Otro diario</option>
+				</select>
+				<div id="categoriasdiv">  Categorias... </div>
+			
+				<aside >
+					<figure>
+						<img class="img_banner" src="imagenes/logo_CSNnews.jpg" alt="Logo de CSNnews" />
+					</figure>
+				</aside>
+			</div>
+			
+		</section>
