@@ -47,6 +47,7 @@
 	            	<li><a href="index.jsp" title="Inicio">Inicio</a></li>
 	            	<% if(!(session.getAttribute("email")==null)){ %>        	
 	            	<li><a href="/perfil.jsp" title="Mi Perfil"><% out.println(session.getAttribute("email")); %></a></li>
+	            	<li><a href="/Administrar_RSS.jsp" title="Administrar RSS">adminRSS</a></li>
 	            	<li><a href="/logout.jsp" title="Salir">Salir</a></li>
 	            	<% }else{ %> 
 	            	<li><a href="/login.jsp" title="Ingresar">Ingresar</a></li>

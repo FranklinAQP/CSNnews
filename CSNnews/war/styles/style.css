@@ -609,6 +609,23 @@ article h4, article p{
 	text-align: left;
 }
 
+/*Tablas de consultada del contenido principal*/
+.tconsulta{
+	width: 95%;
+	margin: 5px 0px 0px 10px;
+	border: 0px solid #a1a1a1;
+	border-spacing: 10px
+	padding: 0px; 
+	border-collapse: collapse;
+}
+tr[name="fila"]:nth-child(odd){/*par*/
+	background: #D2D2FF;
+}
+tr[name="fila"]:nth-child(even){/*impar*/
+	background: #AEAEFF;
+}
+
+
 /*Al mostrarse el feed completo*/
 .display_full img{
 	width: 50%;

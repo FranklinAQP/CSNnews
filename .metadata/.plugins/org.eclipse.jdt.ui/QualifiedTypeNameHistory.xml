@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.modelo.Diario"/>
+<fullyQualifiedTypeName name="com.modelo.Categoria"/>
+<fullyQualifiedTypeName name="com.modelo.Rss"/>
+<fullyQualifiedTypeName name="com.modelo.DataStoreConection"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.FetchOptions"/>
+</qualifiedTypeNameHistroy>

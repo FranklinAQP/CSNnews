@@ -1,8 +1,7 @@
 package com.controlador;
+
 import java.io.IOException;
-
 import javax.servlet.http.*;
-
 import com.modelo.DataStoreConection;
 
 /* Servlet que validará los correos de las cuentas de usuarios registrados

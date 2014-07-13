@@ -12,8 +12,7 @@ public class Usuario extends Persona{
 	@Persistent
 	private List<String> m_temas;
 	@Persistent
-	private List<String> m_diarios;
-	
+	private List<String> m_diarios;	
 	
 	public Usuario(String nombreU, String nombre, String correo,  String correo2, String pass/*, Date fecha*/)
 	{
