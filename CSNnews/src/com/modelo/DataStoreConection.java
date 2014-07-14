@@ -1,11 +1,7 @@
 package com.modelo;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
 //import com.google.appengine.api.datastore.PreparedQuery;
 //import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Key;
@@ -27,47 +23,15 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 public class DataStoreConection {
 	public DataStoreConection(){}
 	///FUNCIONES DE INSERCION
-	
-	public List<Diario> getDiarios(){
-		List<Diario> misdiarios = new ArrayList<Diario>();
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Query q = new  Query ("diario");
-		PreparedQuery pq = ds.prepare(q);
-		//return pq.asList(FetchOptions.Builder.withLimit(5));
-		for(Entity u1:pq.asIterable()){
-			String nombre=u1.getProperty("nombre").toString();
-			String url=u1.getProperty("url").toString();
-			Diario nuevo = new Diario(nombre, url);
-			misdiarios.add(nuevo);
-		}
-		return misdiarios;
-	}
-	
-	
 	//insertando un  rss --------------------------------------------------------------------
-	public void insert_rss(String url,String diario ,String categoria ){	//url_rss  es el id 
+	public void insert_rss(String url_rss,String nombre_rss ,String categoria_rss ){	//url_rss  es el id 
 		DatastoreService data_store_rss= DatastoreServiceFactory.getDatastoreService();	
-		Entity rss =  new Entity("rss",url);
-		rss.setProperty("url",url);
-		rss.setProperty("diario",diario);
-		rss.setProperty("categoria",categoria);
+		Entity rss =  new Entity("rss",url_rss);
+		rss.setProperty("nombre_rss",nombre_rss);
+		rss.setProperty("categoria_rss",categoria_rss);
 		data_store_rss.put(rss);
 	}
 	
-	public void insert_diario(String nombre, String url ){	//url_rss  es el id 
-		DatastoreService ds= DatastoreServiceFactory.getDatastoreService();	
-		Entity diario =  new Entity("diario", nombre);
-		diario.setProperty("nombre", nombre);
-		diario.setProperty("url",url);
-		ds.put(diario);
-	}
-	
-	public void insert_categoria(String nombre){	//url_rss  es el id 
-		DatastoreService ds= DatastoreServiceFactory.getDatastoreService();	
-		Entity categoria =  new Entity("categoria", nombre);
-		categoria.setProperty("nombre", nombre);
-		ds.put(categoria);
-	}
 
 	public void insert_noticia(String id_noticia, String url_rss, String  fecha_noticia){ //el id viene de la noticia
 		DatastoreService data_store_noticia= DatastoreServiceFactory.getDatastoreService();	
@@ -195,14 +159,14 @@ public class DataStoreConection {
 	
 	public Boolean valida_sesion(String correo, String password){
 		//extrayendo datos
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		//DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		//creando entidad sin identificador		
-		@SuppressWarnings("deprecation")
-		Query q = new  Query ("usuario").addFilter("correo", FilterOperator.EQUAL, correo).addFilter("password", FilterOperator.EQUAL , password);
-		PreparedQuery pq = ds.prepare(q);
-		for(Entity u1:pq.asIterable()){
-			return true;			
-		}
+		//@SuppressWarnings("deprecation")
+		//Query q = new  Query ("usuario").addFilter("correo", FilterOperator.EQUAL, correo).addFilter("password", FilterOperator.EQUAL , password);
+		//PreparedQuery pq = ds.prepare(q);
+		//for(Entity u1:pq.asIterable()){
+			//return true;			
+		//}
 		return false;
 	}
 	/*

@@ -29,6 +29,8 @@ public class Persona {
 	@Persistent
 	protected String m_password;
 	
+	public Persona(){}
+	
 	public Persona(String nombreU, String nombre, String correo,  String correo2, String pass/*, Date fecha*/)
 	{
 		m_nombreU = nombreU;
