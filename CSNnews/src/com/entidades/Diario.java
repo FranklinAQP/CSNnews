@@ -1,61 +1,57 @@
 package com.entidades;
 
-import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Diario {
-	
+
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private int m_idDiario;
-	@Persistent
-	private String m_nombreD;
-	@Persistent
-	private int m_idCate;
-	@Persistent
-	private String m_url;
+	protected String idnombre;
 	
-	public Diario(int id, String nombreD, int idCate, String url)
-	{
-		m_idDiario = id;
-		m_nombreD = nombreD;
-		m_idCate = idCate;
-		m_url = url;
-	}
+	@Persistent
+	private String nombre;
 	
-	public void setId(int id)
+	@Persistent
+	private String url;
+	
+	public Diario(String nombreD, String m_url)
 	{
-		m_idDiario = id;
+		this.idnombre = nombreD;
+		this.nombre = nombreD;		
+		this.url = m_url;
+	}	
+	public Diario()
+	{	}
+
+    public String getKey() {
+        return idnombre;
+    }
+	
+	public void setNombre(String nombreD)
+	{
+		this.nombre = nombreD;
 	}
-	public void setNombreD(String nombreD)
+	public void setURL(String _url)
 	{
-		m_nombreD = nombreD;
+		this.url = _url;
 	}
-	public void setIdCate(int idCate)
+	public String getNombre()
 	{
-		m_idCate = idCate;
-	}
-	public void setURL(String url)
-	{
-		m_url = url;
-	}
-	public int getId()
-	{
-		return m_idDiario;
-	}
-	public String getNombreD()
-	{
-		return m_nombreD;
-	}
-	public int getIdCate()
-	{
-		return m_idCate;
+		return nombre;
 	}
 	public String getURL()
 	{
-		return m_url;
+		return url;
 	}
+	@Override
+	public String toString() {
+		String resp = nombre + " : " + url ;  
+		return resp;
+	}
+
 }
+

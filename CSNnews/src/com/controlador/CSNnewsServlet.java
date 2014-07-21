@@ -1,11 +1,13 @@
 package com.controlador;
+
 import java.io.IOException;
 
 import javax.servlet.http.*;
 
-import com.modelo.DataStoreConection;
+import com.entidades.Usuario;
+//import com.modelo.DataStoreConection;
 
-/* Servlet que validarï¿½ los correos de las cuentas de usuarios registrados
+/** Servlet que validará los correos de las cuentas de usuarios registrados
  * al cual accederan por un enlace que se envia a los correos 
  * en el cual estan predefinidas las variables por GET: correo, y cod 
  * http://dominio.com/csnews?correo=...&cod=...
@@ -13,21 +15,23 @@ import com.modelo.DataStoreConection;
 @SuppressWarnings("serial")
 public class CSNnewsServlet extends HttpServlet {
 	
-	/*Recibe las variables de validaciï¿½n por GET*/
+	private UserConnection _userConnect;
+	public CSNnewsServlet()
+	{
+		_userConnect = null;
+	}
+	
+	/**Recibe las variables de validación por GET*/
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-					
+		//Se obtienen las variables
 		String correo = req.getParameter("correo");
-		String codigo_validacion = req.getParameter("cod");		
-		//Se crea un objeto clase para conexion con el dtastore 
-		DataStoreConection ds = new DataStoreConection();
-		/* 
-		 * Se edita el datastore con su funciï¿½n validar_cuenta(correo, codigo_validacion),
-		 *  cambiando el valor predefinido del atributo validado en la entidad 
-		 *  usuario de 0 a 1 y retornando true si se hizo satisfactoriamente y false caso contrario 
-		 * 
-		 */
-		if(ds.validar_cuenta(correo, codigo_validacion)){
-			/*
+		String codigo_validacion = req.getParameter("cod");	
+		//Se crea un objeto de conexion de usuario en base al correo
+		_userConnect = new UserConnection(correo);
+		if(_userConnect.getExist()){
+			Usuario cliente = _userConnect.getUser();
+			cliente.validarCodigo(codigo_validacion);
+			/**
 			 * Se redirecciona a notificaciones indicando por GET: m=cuenta_validada
 			 * para que se muestre el mensaje de validaciï¿½n correspondiente
 			 * 

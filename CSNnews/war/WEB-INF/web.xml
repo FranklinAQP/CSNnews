@@ -28,6 +28,46 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Login</servlet-name>
 		<servlet-class>com.controlador.LoginServlet</servlet-class>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminRSS</servlet-name>
+		<url-pattern>/adminrss</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminRSS</servlet-name>
+		<servlet-class>com.controlador.AdministrarRSSServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUser</servlet-name>
+		<url-pattern>/adminuser</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUser</servlet-name>
+		<servlet-class>com.controlador.AdministrarUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Perfil</servlet-name>
+		<url-pattern>/perfil</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Perfil</servlet-name>
+		<servlet-class>com.controlador.PerfilServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Contacto</servlet-name>
+		<url-pattern>/contacto</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Contacto</servlet-name>
+		<servlet-class>com.controlador.ContactoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Comentario</servlet-name>
+		<servlet-class>com.controlador.CommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Comentario</servlet-name>
+		<url-pattern>/comentario/*</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

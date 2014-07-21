@@ -25,7 +25,7 @@ public class UserConnection {
 	 */
 	private PersistenceManager _managerFact;
 	/**
-	 * Indicará si el usuario esta 
+	 * Indicará si el usuario existe 
 	 */
 	private boolean _exist; 
 	
@@ -114,6 +114,10 @@ public class UserConnection {
 		return _user.getPass().equals(pass);
 	}
 	
+	public boolean validateCorreo()
+	{
+		return _user.getValidate();
+	}
 	/**
 	 * Cierra la connecion
 	 */

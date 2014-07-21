@@ -5,9 +5,13 @@ import java.io.IOException;
 //import java.util.Date;
 
 
+
+
 //import javax.jdo.PersistenceManager;
 //import java.io.PrintWriter;
 import javax.servlet.http.*;
+
+import com.entidades.Usuario;
 
 //import com.entidades.Comentario;
 
@@ -15,11 +19,14 @@ import javax.servlet.http.*;
 
 //import com.modelo.DataStoreConection;
 
-/* Este servlet validarï¿½ el inicio de sesion de usuario*/
+/**
+ *  Este servlet validará el inicio de sesion de cada usuario
+ *  */
 
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
 	private UserConnection _userConnect;
+	private AdminConnection _adminConnect;
 	public LoginServlet()
 	{
 		_userConnect = null;
@@ -31,54 +38,74 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		/*
+		/**
 		 * Capturamos valores de las variables tanto el nombre de ususario con su password
 		 */
 		String pass = req.getParameter("pass");
 		String correo = req.getParameter("correo");
+		String tipo = req.getParameter("tipo");
 		try
 		{
-			/*
-			 * Creamos un objeto de conexion para el usuario(de esta manera _userConnect podra tener al usuario en caso que en la sesion
-			 * se desee modificar algun dato del usuario, u otras cosas adicionales)
-			 */
-			_userConnect = new UserConnection(correo);
-			//NewsConnection nc = new NewsConnection("noticia1", "correo","tegnologia","1-2-3");
-			//for(int i=0; i<10; i++)
-			//{
-				//nc.addComment("comentarioooooooo ", "user");
-				//System.out.println("sisisisi");
-			//}
-			//nc.closeConnect();
-			if(true)//_userConnect.validatePass(pass))
-			{
-				System.out.println("si existe");
-				/*
-				 * Se activa una sesion
+			if(tipo.equals("administrador")){
+				_adminConnect = new AdminConnection(correo);
+				if(!_adminConnect.thereAdmin()){
+					if(pass.equals("admin") && correo.equals("admin@admin")){
+						//Se activa una sesión
+						HttpSession sesion = req.getSession(true);
+						//Se pasa el parametro correo como variable de sesión
+						sesion.setAttribute("email",correo);
+						sesion.setAttribute("nivel",new Integer(2));						
+						//Se redirecciona al indice con la sesion activa
+						resp.sendRedirect("index.jsp");
+					}else{
+						resp.sendRedirect("notificaciones.jsp?m=sesion_invalida1 ");
+					}
+				}else if(_adminConnect.getExist()){
+					if(_adminConnect.validatePass(pass)){
+						//Se activa una sesión
+						HttpSession sesion = req.getSession(true);
+						//Se pasa el parametro correo como variable de sesión
+						sesion.setAttribute("email",correo);
+						sesion.setAttribute("nivel",new Integer(2));
+						//sesion.setAttribute("valor", new Integer(22));
+						//Se redirecciona al indice con la sesion activa
+						resp.sendRedirect("index.jsp");
+					}
+					else{
+						//Se redirecciona a notificaciones con m=sesion_invalida para el mensaje correspondiente
+						resp.sendRedirect("notificaciones.jsp?m=sesion_invalida2 ");
+					}
+				}else{
+					resp.sendRedirect("notificaciones.jsp?m=sesion_invalida1 ");
+				}
+			}else{			
+				/**
+				 * Creamos un objeto de conexion para el usuario(de esta manera _userConnect podra tener al usuario en caso que en la sesion
+				 * se desee modificar algun dato del usuario, u otras cosas adicionales)
 				 */
-				
-				/**RESOLVER ESTO**/
-				
-				//HttpSession sesion = req.getSession(true);
-				/*
-				 * Se pasa el parametro correo como variable de sesiï¿½n
-				 */
-				//sesion.setAttribute("email",correo);
-				/*
-				 * Se redirecciona al indice con la sesion activa
-				 */
-				//resp.sendRedirect("index.jsp");
-			}else{
-				/*
-				 * Se redirecciona a notificaciones con m=sesion_invalida para el mensaje correspondiente
-				 */
-				resp.sendRedirect("notificaciones.jsp?m=sesion_invalida ");
+				_userConnect = new UserConnection(correo);
+				if(_userConnect.getExist()){
+					if(_userConnect.validatePass(pass)){
+						//Se activa una sesión
+						Usuario user = _userConnect.getUser();
+						HttpSession sesion = req.getSession(true);
+						//Se pasa el parametro correo como variable de sesión
+						sesion.setAttribute("email",correo);
+						sesion.setAttribute("username",user.getnombreU());
+						sesion.setAttribute("nivel", new Integer(1));
+						//Se redirecciona al indice con la sesion activa
+						resp.sendRedirect("index.jsp");
+					}
+				}else{
+					//Se redirecciona a notificaciones con m=sesion_invalida para el mensaje correspondiente
+					resp.sendRedirect("notificaciones.jsp?m=sesion_invalida ");
+				}
 			}
 		}catch(Exception e){
-			System.out.println("error");
+			System.out.println("Ocurrio un error, <a href='login.jsp'>vuelva a intentarlo</a>");
 		}finally
 		{
-			
+			//_userConnect.closeConnect();
 		}
 	}
 }

@@ -20,7 +20,13 @@
 						<br>
 						<form class="contact_form" action="/login" method="post">
 						    <ul>
-						       
+						       <li>
+						       		<label for="tipo">Ingresar como:</label>
+						       		<select name="tipo" required>
+						       			<option value="usuario">Usuario</option>
+						       			<option value="administrador">Administrador</option>
+						       		</select>
+						       </li>
 						       <li>
 						           <label for="correo"><img src="/imagenes/_user.png" class="icono_img">Correo:</label>
 						           <input name="correo" type="email" placeholder="correo" required autofocus> 						       </li>

@@ -1,15 +1,18 @@
+	
 <!DOCTYPE html>
 <html lang="es">
 	<head>
 		<meta charset="utf-8">		
 		<title>titulo del articulo</title>
 		<link rel="stylesheet" href="styles/style.css" type="text/css" />
+		<link rel="stylesheet" href="styles/style_comentario.css" type="text/css" />		
+		<script src="http://connect.facebook.net/es_LA/all.js#appId=APP_ID&amp;xfbml=1" type="text/javascript"></script>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="//www.google.com/jsapi?key=AIzaSyA5m1Nc8ws2BbmPRwKu5gFradvD_hgq6G0" type="text/javascript"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>
-		<script src="/JavaScript/LoadFeed.js" type="text/javascript"></script>
-		<script src="/JavaScript/FindFeeds.js" type="text/javascript"></script>
+		
+		<script src="/JavaScript/popup.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			google.load("feeds", "1"); //Cargamos Google Ajax Feed API (version 1)*MUY NECESARIO
 		</script>		
@@ -47,6 +50,10 @@
 	            	<li><a href="index.jsp" title="Inicio">Inicio</a></li>
 	            	<% if(!(session.getAttribute("email")==null)){ %>        	
 	            	<li><a href="/perfil.jsp" title="Mi Perfil"><% out.println(session.getAttribute("email")); %></a></li>
+	            		<% if((Integer)session.getAttribute("nivel")==2){ %>  
+	            			<li><a href="/Administrar_RSS.jsp" title="Administrar RSS">adminRSS</a></li>
+	            			<li><a href="/Administrar_Usuarios.jsp" title="Administrar Usuarios">adminUsers</a></li>
+	            		<% } %>
 	            	<li><a href="/logout.jsp" title="Salir">Salir</a></li>
 	            	<% }else{ %> 
 	            	<li><a href="/login.jsp" title="Ingresar">Ingresar</a></li>

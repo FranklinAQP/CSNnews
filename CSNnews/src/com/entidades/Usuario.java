@@ -14,18 +14,22 @@ public class Usuario extends Persona{
 	@Persistent
 	private List<String> m_temas;
 	@Persistent
-	private List<String> m_diarios;
+	private List<String> m_categorias;
 	@Persistent 
 	String m_codigoV;
 	@Persistent 
 	boolean m_validado;
+	@Persistent 
+	boolean m_suspendido;
 	
-	
-	public Usuario(String nombreU, String nombre, String correo,  String correo2, String pass, String fecha, char sexo, String codigo)
+	public Usuario(String nombreU, String nombre, String correo,  String correo2, String pass, String codigo, String categoria)
 	{
-		super(nombreU, nombre, correo, correo2, pass, fecha, sexo);
+		super(nombreU, nombre, correo, correo2, pass);
+		m_categorias =  new ArrayList<String>();
+		m_categorias.add(categoria);
 		m_codigoV = codigo;
 		m_validado = false;
+		m_suspendido = false;
 	}
 	
 	public Usuario(){
@@ -40,7 +44,18 @@ public class Usuario extends Persona{
 		m_validado = (m_codigoV.equals(codigo));
 		return m_validado;
 	}
-	
+	public boolean getValidate()
+	{
+		return m_validado;
+	}
+	public boolean getSuspendido()
+	{
+		return m_suspendido;
+	}
+	public void setSuspendido(boolean s)
+	{
+		m_suspendido = s;
+	}
 	public String getCodigo()
 	{
 		return m_codigoV;
@@ -51,9 +66,9 @@ public class Usuario extends Persona{
 		m_temas.add(tema);
 	}
 	
-	public void addDiario(String diario)
+	public void addCategoria(String categoria)
 	{
-		m_diarios.add(diario);
+		m_categorias.add(categoria);
 	}
 	
 	public void deleteTema(String tema)
@@ -61,20 +76,23 @@ public class Usuario extends Persona{
 		m_temas.remove(tema);
 	}
 	
-	public void deleteDiario(String diario)
+	public void deleteCategoria(String categoria)
 	{
-		m_diarios.remove(diario);
+		m_categorias.remove(categoria);
 	}
 	
 	public List<String> getTemas()
 	{
 		return m_temas;
 	}
-	public List<String> getDiarios()
+	public void deleteAllCategorias()
 	{
-		return m_temas;
+		m_categorias.clear();
 	}
-	
+	public List<String> getCategorias()
+	{
+		return m_categorias;
+	}
 	
 	public String toString() {
 		String resp = m_nombre + " : " + m_nombreU + " : " +m_correo ;  

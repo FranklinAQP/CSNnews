@@ -1,31 +1,35 @@
 package com.entidades;
 
-public class Categoria{
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-	private int m_idCate;
-	private String m_nombreCate;
+@PersistenceCapable
+public class Categoria{
 	
-	public Categoria(int id, String nombre)
-	{
-		m_idCate = id;
-		m_nombreCate = nombre;
-	}
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private String idnombre;
 	
-	public void setId(int id)
-	{
-		m_idCate = id;
-	}
-	public void setNombreCate(String nombre)
-	{
-		m_nombreCate = nombre;
-	}
+	@Persistent
+	private String nombre;
 	
-	public int getId()
+	public Categoria()
 	{
-		return m_idCate;
+
 	}
-	public String getNombreCate()
+	public Categoria(String _nombre)
 	{
-		return m_nombreCate;
+		idnombre = _nombre;
+		nombre = _nombre;
+	}
+	public void setNombre(String _nombre)
+	{
+		nombre = _nombre;
+	}
+	public String getNombre()
+	{
+		return nombre;
 	}
 }

@@ -2,7 +2,7 @@ package com.controlador;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Stack;
+//import java.util.Stack;
 
 import javax.jdo.PersistenceManager;
 
@@ -46,23 +46,22 @@ public class NewsConnection {
 	public NewsConnection(String idNoticia, String idDiario, String idCategoria, String fecha)
 	{
 		_managerFact = PersistenceMF.get().getPersistenceManager();
-		_news = searchNews(idNoticia);
+		
 		/*esto nos ayudara para poder saber si almacenamos desde cero todo o modificamos la noticia en cuanto a los comentarios*/
+		_news = searchNews(idNoticia);
 		_exist = _news!=null;
-		if(!_exist)_news = new Noticia(idNoticia, idDiario, idCategoria, fecha);
-		else{
-			Stack<Comentario> c = _news.getComentarios();
-			for(int i=0; i<c.size(); i++)
-				System.out.println(c.get(i).getTexto());
-		}
+		if(_news == null) _news = new Noticia(idNoticia,idDiario, idCategoria, fecha);
+		
+		
 	}
-	void addComment(String texto, String user)
+	Comentario addComment(String texto, String user)
 	{
 		Date day = new Date();
 		@SuppressWarnings("deprecation")
 		Comentario com = new Comentario(user,_news.getId(),texto,day.toLocaleString().split(" ")[0]);
 		_news.addComentario(com);
-		
+		System.out.println("agrega comentario");
+		return com;
 	}
 	/**
 	 * Retornara la noticia de la conección
@@ -122,6 +121,14 @@ public class NewsConnection {
 			System.out.println("no hay tabla");
 			return null;
 		}
+		/*try{
+		Noticia n = _managerFact.getObjectById(Noticia.class,idNoticia);
+		return n;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}*/
 		
 	}	
 	/**
@@ -131,6 +138,7 @@ public class NewsConnection {
 	{
 		
 		registerNoticia();
+		_managerFact.refreshAll();
 		_managerFact.close();
 	}
 	

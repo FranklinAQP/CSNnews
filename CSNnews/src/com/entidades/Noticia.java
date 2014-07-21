@@ -9,7 +9,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 
-import com.google.appengine.api.datastore.Key;
+//import com.google.appengine.api.datastore.Key;
 
 
 /**
@@ -22,8 +22,6 @@ public class Noticia {
 	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
-	@Persistent
 	private String m_idNoticia;
 	@Persistent
 	private String m_idDiario;
@@ -47,6 +45,7 @@ public class Noticia {
 		m_idDiario = idDiario;
 		m_idCategoria = idCate;
 		m_fecha = fecha;
+		m_comentarios = new Stack<Comentario>();
 	}
 	/**
 	 * Constructor.
@@ -111,6 +110,7 @@ public class Noticia {
 	 */
 	public void addComentario(Comentario comentario)
 	{
+		if(comentario==null)System.out.println("no hay nada");
 		m_comentarios.add(comentario);
 	}
 	/**
