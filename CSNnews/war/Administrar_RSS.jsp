@@ -19,7 +19,8 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					
+					<div id="feeddiv"></div>						
+						<!-- Aqui saldran las noticias -->
 					<section class="other_content">
 					<div id="lcontain">
 			  			<h1>Administrar DIARIOS</h1> 
@@ -40,7 +41,7 @@
 								out.print("<tr name='fila'><td>"+(i+1)+"</td>");
 								out.print("<td>"+diario.getNombre()+"</td>");
 								out.print("<td>"+diario.getURL()+"</td>");
-								out.print("<td><a href='adminrss?d="+diario.getNombre()+"'>Eliminar</a></td></tr>");
+								out.print("<td><a href='adminrss?d="+diario.getNombre()+"'><img class='icono_img' src='/imagenes/i_delete.png' alt='Eliminar' title='Eliminar'></a></td></tr>");
 							}%>
 						</tbody></table>
 						
@@ -70,7 +71,7 @@
 								Categoria categoria=(Categoria)lista_categorias.get(i);
 								out.print("<tr name='fila'><td>"+(i+1)+"</td>");
 								out.print("<td>"+categoria.getNombre()+"</td>");
-								out.print("<td><a href='adminrss?c="+categoria.getNombre()+"'>Eliminar</a></td></tr>");
+								out.print("<td><a href='adminrss?c="+categoria.getNombre()+"'><img class='icono_img' src='/imagenes/i_delete.png' alt='Eliminar' title='Eliminar'></a></td></tr>");
 							}%>
 						</tbody></table>
 						
@@ -98,7 +99,7 @@
 								out.print("<td><a href='"+rss.getURL()+"' target='_blank'><img class='icono_img' alt='"+rss.getURL()+"' title='"+rss.getURL()+"' src='imagenes/rss.png'></a></td>");
 								out.print("<td>"+rss.getDiario()+"</td>");
 								out.print("<td>"+rss.getCategoria()+"</td>");
-								out.print("<td><a href='adminrss?r="+rss.getURL()+"'>Eliminar</a></td></tr>");
+								out.print("<td><a href='adminrss?r="+rss.getURL()+"'><img class='icono_img' src='/imagenes/i_delete.png' alt='Eliminar' title='Eliminar'></a></td></tr>");
 							} %>
 						</tbody></table>
 						

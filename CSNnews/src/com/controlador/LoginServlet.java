@@ -7,10 +7,12 @@ import java.io.IOException;
 
 
 
+
 //import javax.jdo.PersistenceManager;
 //import java.io.PrintWriter;
 import javax.servlet.http.*;
 
+import com.entidades.Administrador;
 import com.entidades.Usuario;
 
 //import com.entidades.Comentario;
@@ -54,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 						HttpSession sesion = req.getSession(true);
 						//Se pasa el parametro correo como variable de sesión
 						sesion.setAttribute("email",correo);
+						sesion.setAttribute("username","admin");
 						sesion.setAttribute("nivel",new Integer(2));						
 						//Se redirecciona al indice con la sesion activa
 						resp.sendRedirect("index.jsp");
@@ -63,9 +66,11 @@ public class LoginServlet extends HttpServlet {
 				}else if(_adminConnect.getExist()){
 					if(_adminConnect.validatePass(pass)){
 						//Se activa una sesión
+						Administrador admin = _adminConnect.getAdmin(); 
 						HttpSession sesion = req.getSession(true);
 						//Se pasa el parametro correo como variable de sesión
 						sesion.setAttribute("email",correo);
+						sesion.setAttribute("username",admin.getnombreU());
 						sesion.setAttribute("nivel",new Integer(2));
 						//sesion.setAttribute("valor", new Integer(22));
 						//Se redirecciona al indice con la sesion activa
@@ -87,14 +92,20 @@ public class LoginServlet extends HttpServlet {
 				if(_userConnect.getExist()){
 					if(_userConnect.validatePass(pass)){
 						//Se activa una sesión
+						
 						Usuario user = _userConnect.getUser();
+						if(user.getValidate()){
 						HttpSession sesion = req.getSession(true);
 						//Se pasa el parametro correo como variable de sesión
 						sesion.setAttribute("email",correo);
 						sesion.setAttribute("username",user.getnombreU());
 						sesion.setAttribute("nivel", new Integer(1));
 						//Se redirecciona al indice con la sesion activa
+						}
 						resp.sendRedirect("index.jsp");
+						
+					}else{
+						resp.sendRedirect("notificaciones.jsp?m=sesion_invalida");
 					}
 				}else{
 					//Se redirecciona a notificaciones con m=sesion_invalida para el mensaje correspondiente

@@ -58,9 +58,11 @@
 									}
 								}
 								out.print("</ul></li>");
-								if((session.getAttribute("email")==null) && i==2 ){
+								/*if((session.getAttribute("email")==null) && i==2 ){
 									break;
 								}
+								//Este fragmento de codigo restringia el acceso de usuario no registrados a solo 3 categorias
+								*/
 							}
 					}/*else{
 						 JDO<Usuario> jdou=JDO.getInstance(Usuario.class);

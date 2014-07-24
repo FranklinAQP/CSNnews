@@ -76,7 +76,7 @@ public class RegisterServlet extends HttpServlet {
 					msgBody += "username: "+ username +"\n";
 					msgBody += "password: "+ passa +"\n";
 					msgBody += "Porfavor haga click en el siguiente enlace o abralo en una nueva pestaña de su navegador ";
-					msgBody += "para validar su correo y tener acceso a los beneficios de su cuenta: \n http://csvistas12.appspot.com/csnnews?correo="+ correo +"&cod="+codigo;
+					msgBody += "para validar su correo y tener acceso a los beneficios de su cuenta: \n http://csnewsunsa.appspot.com/csnnews?correo="+ correo +"&cod="+codigo;
 					try {
 						//se crea un objeto para javamail
 						Message msg = new MimeMessage(session);

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 //import java.util.Stack;
 
+
 import javax.jdo.PersistenceManager;
 
 import com.entidades.Comentario;
@@ -13,12 +14,13 @@ import com.entidades.Noticia;
 
 
 
+
 import javax.jdo.*;
 
 /**
  * Esta clase define una conexion Noticia con sus comentarios con datastore de Google.
  * @author: CSNnews Group
- * @version: 22/09/2016/A
+ * @version: 12/07/2014/A
  */
 
 public class NewsConnection {
@@ -58,7 +60,7 @@ public class NewsConnection {
 	{
 		Date day = new Date();
 		@SuppressWarnings("deprecation")
-		Comentario com = new Comentario(user,_news.getId(),texto,day.toLocaleString().split(" ")[0]);
+		Comentario com = new Comentario(user,_news.getId(),texto,day.toLocaleString().split(" ")[0]);//
 		_news.addComentario(com);
 		System.out.println("agrega comentario");
 		return com;

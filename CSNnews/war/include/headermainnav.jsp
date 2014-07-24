@@ -3,7 +3,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">		
-		<title>titulo del articulo</title>
+		<title>CSN | Computer Science News</title>
 		<link rel="stylesheet" href="styles/style.css" type="text/css" />
 		<link rel="stylesheet" href="styles/style_comentario.css" type="text/css" />		
 		<script src="http://connect.facebook.net/es_LA/all.js#appId=APP_ID&amp;xfbml=1" type="text/javascript"></script>
@@ -62,6 +62,7 @@
 	            	<li><a href="/login.jsp" title="Ingresar">Ingresar</a></li>
 	            	<li><a href="/registro.jsp" title="Registrarse">Registrarse</a></li>
 	            	<% } %>
+	            	<li><a href="manual_usuario.jsp" title="Manual de Usuario">?</a></li>
 				</ul>
 	        	</nav>
 			</div>

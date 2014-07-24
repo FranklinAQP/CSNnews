@@ -3,6 +3,7 @@ package com.controlador;
 import java.io.IOException;
 
 import javax.servlet.http.*;
+
 import com.entidades.Administrador;
 import com.entidades.Usuario;
 
@@ -29,6 +30,9 @@ public class PerfilServlet extends HttpServlet {
 		/**
 		 * Capturamos valores de las variables dependiendo si es usuario o administrador
 		 */
+		if(req.getSession().getAttribute("email")==null){
+			resp.sendRedirect("index.jsp");
+		}
 		//String username = req.getParameter("username");
 		String nombre = req.getParameter("nombre");		
 		String correo = req.getParameter("correo");		
@@ -58,7 +62,7 @@ public class PerfilServlet extends HttpServlet {
 					admin.setPass(passa);
 				}
 				_adminConnect.closeConnect();
-				resp.sendRedirect("notificaciones.jsp?m=operacion_hecha ");
+				resp.sendRedirect("perfil.jsp");
 			}	
 		/**
 		 * En el caso de usuario
@@ -77,7 +81,7 @@ public class PerfilServlet extends HttpServlet {
 				user.setPass(passa);
 			}			 
 			_userConnect.closeConnect();
-			resp.sendRedirect("perfil.jsp?rep");
+			resp.sendRedirect("perfil.jsp");
 		}
 		resp.sendRedirect("notificaciones.jsp?m=operacion_invalida ");
 	}

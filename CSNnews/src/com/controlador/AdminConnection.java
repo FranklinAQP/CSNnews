@@ -15,7 +15,7 @@ import javax.jdo.*;
 
 public class AdminConnection {
 	/**
-	 * Es la entidad a representar
+	 * Es la entidad Administrador a representar
 	 */
 	private Administrador _admin;
 	/**
@@ -64,7 +64,7 @@ public class AdminConnection {
 		return _exist;
 	}
 	/**
-	 * EvalÃºa si el administrador existe en la base de datos.
+	 * Evalúa si el administrador existe en la base de datos.
 	 * @return Indica si el administrador existe o no.
 	 */
 	public boolean evalExistAdmin()
@@ -75,7 +75,7 @@ public class AdminConnection {
 	}
 	
 	/**
-	 * Regitrar al administrador en caso de no estarlo.
+	 * Regitrar al administrador 
 	 * @return Retorna un boolean que indicara si lo registro o no.
 	 */
 	public boolean registerAdmin()
@@ -88,7 +88,7 @@ public class AdminConnection {
 	/**
 	 * Busca a un administrador con su correo en la base de datos.
 	 * @param correo Correo de usuario.
-	 * @return Usuario con dicho correo.
+	 * @return Administrador con dicho correo.
 	 */
 	public Administrador searchAdmin(String correo)
 	{
@@ -115,7 +115,7 @@ public class AdminConnection {
 	/**
 	 * Evalua si dicho password es del administrador
 	 * @param pass contraseÃ±a del usuario
-	 * @return Si es o no su contraseÃ±a
+	 * @return Si es o no su contraseña
 	 */
 	public boolean validatePass(String pass)
 	{

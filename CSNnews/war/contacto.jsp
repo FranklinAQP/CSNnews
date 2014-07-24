@@ -12,7 +12,8 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					
+					<div id="feeddiv"></div>						
+						<!-- Aqui saldran las noticias -->
 					<section class="other_content">
 					<div id="lcontain">
 					<%if(request.getParameter("m") != null){ %>

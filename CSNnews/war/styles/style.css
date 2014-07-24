@@ -617,11 +617,12 @@ article h4, article p{
 th, td {
 padding: 2px;
 text-align: center;
-}
+}/*
 table thead {
 background: #2B4266;
 color: #fff;
-}
+}*/
+/*
 .tconsulta{
 	width: 95%;
 	margin: 5px 0px 0px 10px;
@@ -630,13 +631,75 @@ color: #fff;
 	padding: 0px; 
 	border-collapse: collapse;
 }
-tr[name="fila"]:nth-child(odd){/*par*/
-	background: #D2D2FF;
+.tconsulta th{
+	color: #DACDCD;
+	border-left: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+	font-size: 11px; 
+	font-weight: bold; 
+	padding: 7px; 
+	text-shadow: 0px 1px #242424; 
 }
-tr[name="fila"]:nth-child(even){/*impar*/
-	background: #AEAEFF;
+.tconsulta tr:hover td{ 
+	background: #fff8cf;
+	color: #000000; 
+}
+table td{ 
+	border-bottom: 1px solid #ffffff; 
+	border-top: 1px solid ffffff; 
+	color: #565656;
+	padding: 8px; 
+}
+*/
+
+
+
+table{ 
+	border-collapse: collapse; 
+	margin: 15px; 
+	width: 90%; 
+}
+table th{ 
+	background: url(/imagenes/bg_box_head.jpg) repeat-x;
+	color: #DACDCD;
+	border-left: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+	font-size: 11px; 
+	font-weight: bold; 
+	padding: 7px; 
+	text-shadow: 0px 1px #242424; 
+}
+table tr{ 
+	border-left: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+}
+table td{ 
+	border-bottom: 1px solid #ffffff; 
+	border-top: 1px solid ffffff; 
+	color: #565656;
+	padding: 8px; 
+}
+table tr:hover td{ 
+	background: #fff8cf;
+	color: #000000; 
+}
+table .chb{ 
+	width: 20px; 
 }
 
+.table-icon { padding: 1px 8px; margin-right: 5px; }
+.edit.table-icon { background: url(/imagenes/i_edit.png) no-repeat; }
+.delete.table-icon { background: url(../imagenes/i_delete.png) no-repeat; }
+.archive.table-icon { background: url(../imagenes/i_archive.png) no-repeat; }
+
+/*
+tr[name="fila"]:nth-child(odd){//par
+	background: #D2D2FF;
+}
+tr[name="fila"]:nth-child(even){//impar
+	background: #AEAEFF;
+}
+*/
 
 /*Al mostrarse el feed completo*/
 .display_full img{
@@ -668,6 +731,22 @@ tr[name="fila"]:nth-child(even){/*impar*/
 	width: 30px;	
 }
 
+/*Para contenedor de manual de usuario y administrador*/
+.contenedor_manual{
+	border: 2px solid rgb(0, 0, 0); 
+	height: 800px; 
+	overflow: auto; 
+	padding: 0 0 0 0; 
+	width: 90%;
+}
+.contenedor_manual h3 {
+background: rgb(205, 206, 15);
+}
+.img_manual{
+	width: 100%;
+	height: auto;
+}
+
 /*Barra inferior de comentarios*/
 .coment{
 	background-color: white;
@@ -697,6 +776,33 @@ tr[name="fila"]:nth-child(even){/*impar*/
 	width: 100%;
 	height: auto;
 	
+}
+#destacados{
+	background-color: rgba(0, 0, 8, 0.2);
+	background: rgba(0, 0, 8, 0.2);
+	color: rgba(0, 0, 8, 0.2);
+}
+.article_banner{
+	background-color: rgba(20, 34, 53, 0.3);
+	background: rgba(20, 34, 53, 0.3);
+	color: rgba(20, 34, 53, 0.3);
+	text-shadow:0px 0px 0px #000000;
+	-moz-box-shadow: 2px -1px 6px #000000;
+	-webkit-box-shadow: 2px -1px 6px #000000;
+	box-shadow: 2px -1px 6px #000000;
+	border:dashed 0px #000000;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright:5px;
+	-moz-border-radius-bottomleft:5px;
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
 }
 
 /*Pie de pagina*/

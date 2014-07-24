@@ -1,6 +1,6 @@
 		<div id="contenedore">
 			<footer id="mainfooter">
-				<p class="copyright">Copyright &copy, 2014 <a href="#">CSN news</a> Todos los derechos reservados. <a href="contacto.jsp">Contáctenos</a></p>										
+				<p class="copyright">Copyright &copy, 2014 <a href="#">CSN news</a> Todos los derechos reservados. <a href="contacto.jsp">Contáctenos</a> </p>										
 			</footer>
 		</div>
 	<script type="text/javascript">

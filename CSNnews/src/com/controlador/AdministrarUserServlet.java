@@ -29,6 +29,11 @@ public class AdministrarUserServlet extends HttpServlet{
 	}*/
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if(req.getSession().getAttribute("email")==null){
+			resp.sendRedirect("index.jsp");
+		}else if(((Integer)req.getSession().getAttribute("nivel"))!=2){
+			resp.sendRedirect("index.jsp");
+		}
 		String eliminar_correo = req.getParameter("d");
 		String suspender_correo = req.getParameter("s");
 		String habilitar_correo = req.getParameter("h");
@@ -50,6 +55,11 @@ public class AdministrarUserServlet extends HttpServlet{
 	}
 	
 	public void doPost(HttpServletRequest rep, HttpServletResponse resp) throws IOException {
+		if(rep.getSession().getAttribute("email")==null){
+			resp.sendRedirect("index.jsp");
+		}else if(((Integer)rep.getSession().getAttribute("nivel"))!=2){
+			resp.sendRedirect("index.jsp");
+		}
 		String correo = rep.getParameter("correo");
 		String cargo = rep.getParameter("cargo");
 		UserConnection _userConnect	= new UserConnection(correo);		

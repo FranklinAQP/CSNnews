@@ -7,7 +7,7 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					<div id="feeddiv">Loading...</div>						
+					<div id="feeddiv"></div>						
 						<!-- Aqui saldran las noticias -->
 						
 					<section class="article_content">	

@@ -81,7 +81,7 @@ function rssfeedsetup(){
 function rssfeedsetup_banner_derecho(){
 	var feed_banner=new google.feeds.Feed(url_banner);
 	feed_banner.setNumEntries(feedlimit);
-	feed_banner.load(display_banner);
+	feed_banner.load(display_banner);	
 }
 
 /*----------------Mostramos el resutado en Formato HTML------------------------*/
@@ -120,7 +120,7 @@ function mostrar_noticias(pagina){
 	rssoutput+="<div id='historial'>historial </div>";
 	
 	feedcontainer.innerHTML=rssoutput;
-
+	
 	link_historial();//mostramos elhistorial Ej:1 2 3 4 5
 }
 
@@ -161,7 +161,9 @@ function links(i){
 	rssoutput+="</article>";
 	
 	rssoutput+="</section></section>";
+	
 	feedcontainer.innerHTML=rssoutput;
+	document.getElementById("lcontain").innerHTML="";
 	
 }
 //colocamos los comentarios solo para Facebook 
@@ -219,7 +221,7 @@ function mostrar_divlist_comentarios(){
 	for(var i=tam-1;i>=0 && i>=tam_list_comentarios;i--){
 		list_comentario_html+="<div id='cs_comentario_list'><img src='"+ img_usuario +"' class='listcomentario_img'></br>";
 		//faltaria colocarle una img y el nombre del usuario
-		list_comentario_html+=list_comentarios[i].m_nombreU+"</br>";
+		list_comentario_html+=list_comentarios[i].m_nombreU+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>"+list_comentarios[i].m_fecha+"</i></br>";
 		list_comentario_html+=list_comentarios[i].m_texto;
 		list_comentario_html+="</div>";
 	}
@@ -233,13 +235,13 @@ function mascomentarios(){
 
 //boton de comentar->solo añadimos a list_comentarios
 function boton_comentar(i){
-	var comentario=document.getElementById("text_comentario").value;
+	var comentario=document.getElementById("text_comentario").value;	
 	if(comentario==""){return;}
 	//PRIMERO debe de verificar si tiene cuenta...eso falta
 	if(name_usuario=="null"){alert("Primero debe de iniciar sesion para comentar! Si usted ya inició sesión es posible que haya sido inhabilitado de realizar comentarios");return;}
 	document.getElementById("text_comentario").value="";//limpiamos el input del comentario
 	
-	//faltaria colocarlo a la base de datos y usar el feed_link[i] para saber a que noticia le dio el coemntario
+	//faltaria colocarlo a la base de datos y usar el feed_link[i] para saber a que noticia le dio el comentario 
 	$("#text_comentario").val("");
 	$.ajax({
 		type:'post',
@@ -293,23 +295,29 @@ function display_banner(result){
 		}	
 		banner_html+="";
 		contendedorbanner.innerHTML=banner_html;
+		
 	}
 	else
-		alert("Error al captuar feeds!");
+		alert("Error al capturar feeds!");
 
 }
 
 //--------------------Ejecutamos la funcion rssfeedsetup al iniciar la pagina-----------------------------
 window.onload=function(){
 	var search = "";
-	var ruta=String( window.location.href );	
+	var ruta=String( window.location.href );
+	var archivoext=ruta.split('/')[3];
+	var archivo;
 	if(ruta.indexOf('?') != -1){
+		archivo=archivoext.split('?')[0];
 		if(locationVars("search")){
 			search = locationVars ("search");
 			searchload(search);
 		}
+	}else{
+		archivo = archivoext;
 	}
-	if(search==""){
+	if(search=="" && (archivo=="" || archivo=="index.jsp" || archivo=="articulo.jsp")){
 		rssfeedsetup();//carga una sola vez
 	}
 	rssfeedsetup_banner_derecho();

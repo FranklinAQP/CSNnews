@@ -24,6 +24,11 @@ public class AdministrarRSSServlet extends HttpServlet{
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if(req.getSession().getAttribute("email")==null){
+			resp.sendRedirect("index.jsp");
+		}else if(((Integer)req.getSession().getAttribute("nivel"))!=2){
+			resp.sendRedirect("index.jsp");
+		}
 		String d = req.getParameter("d");
 		String c = req.getParameter("c");
 		String r = req.getParameter("r");
@@ -44,6 +49,11 @@ public class AdministrarRSSServlet extends HttpServlet{
 	
 	/*Recibe las variables por POST (funciones de agregar)*/
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if(req.getSession().getAttribute("email")==null){
+			resp.sendRedirect("index.jsp");
+		}else if(((Integer)req.getSession().getAttribute("nivel"))!=2){
+			resp.sendRedirect("index.jsp");
+		}
 		String url_diario = req.getParameter("url_diario");
 		String nueva_categoria = req.getParameter("nueva_categoria");
 		String url_rss = req.getParameter("url_rss");

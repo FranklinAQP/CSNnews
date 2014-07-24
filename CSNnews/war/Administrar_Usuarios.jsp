@@ -20,7 +20,8 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					
+					<div id="feeddiv"></div>						
+						<!-- Aqui saldran las noticias -->
 					<section class="other_content">
 					<div id="lcontain">
 			  			<h1>Administrar USUARIOS</h1>
@@ -50,7 +51,7 @@
 								}else{
 									out.print("<td><a href='adminuser?s="+user.getcorreo()+"'><img class='icono_img' alt='Cuenta Habilitada' title='Cuenta Habilitada' src='imagenes/cuenta_habilitada.png'></a></td>");
 								}
-								out.print("<td><a href='adminuser?d="+user.getcorreo()+"'>Eliminar</a></td>");
+								out.print("<td><a href='adminuser?d="+user.getcorreo()+"'><img class='icono_img' src='/imagenes/i_delete.png' alt='Eliminar' title='Eliminar'></a></td>");
 							}%>
 						</tbody></table>
 						
