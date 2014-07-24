@@ -17,19 +17,16 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					<div id="feeddiv"></div>						
-						<!-- Llamamos al archivo FindFeed.js para buscar las noticias -->
-						<script type="text/javascript">
-							<%@ include file="/JavaScript/FindFeeds.js" %>
-						</script>
-						
+					
 					<section class="other_content">
 					<div id="lcontain">
 			  			<h1>Mi Perfil</h1>		
 			  			<%
 			  			boolean isadmin=false;
-			  			if((Integer)session.getAttribute("nivel")==2){
-			  				isadmin=true;			  				
+			  			if(!(session.getAttribute("email")==null)){
+				  			if((Integer)session.getAttribute("nivel")==2){
+				  				isadmin=true;			  				
+				  			}
 			  			}
 			  			Usuario user;
 			  			Administrador admin;

@@ -1,3 +1,6 @@
+		<%@page import="java.util.*" %>
+		<%@ page import="com.entidades.Usuario"%>
+		<%@ page import="com.modelo.JDO"%>
 <script type="text/javascript">
 /*-----------------------------------VARIABLES GLOBALES------------------------------------*/
 var feedcontainer=document.getElementById("feeddiv");//Aqui estaran las noticias
@@ -23,14 +26,54 @@ var list_comentarios=new Array();
 var list_comentario_html="";
 var tam_list_comentarios=0;
 /*-------USUARIO-------------*/
-var name_usuario="<%= session.getAttribute("username") %>";
+<%
+String name_usuario = "null";
+if(!(session.getAttribute("email")==null)){
+	if((Integer)session.getAttribute("nivel")==2){
+		name_usuario = (String)session.getAttribute("username");
+	}else{
+		JDO<Usuario> jdomiuser=JDO.getInstance(Usuario.class);
+		Usuario current_user = jdomiuser.findByIdString((String)session.getAttribute("email"));
+		if(!current_user.getSuspendido()){
+			name_usuario = (String)session.getAttribute("username");
+		}
+	}
+}
+%>	
+var name_usuario="<%= name_usuario %>";
+
+/*Captura url de feed pasada por get*/
+function locationVars (vr)
+{		
+		var src = String( window.location.href ).split('?')[1];
+        var vrs = src.split('&');
+        
+        for (var x = 0, c = vrs.length; x < c; x++) 
+        {
+        	if (vrs[x].indexOf(vr) != -1)
+        	{
+        		return decodeURI( vrs[x].split('=')[1] );
+        		break;
+        	};
+        };
+        return false;
+};
 
 /*-----------Ejecutamos los metodos de Google Feed API-----------*/
 function rssfeedsetup(){
+	var ruta=String( window.location.href );
+	if(ruta.indexOf('?') != -1){		
+		if(locationVars("url")){
+			feedurl = locationVars ("url");
+		}
+	}else{
+		feedurl="http://diariocorreo.pe/RSS-portlet/feed/correo/politica";
+	}
 	var feedpointer=new google.feeds.Feed(feedurl); //Google Feed API method: Controlador de Feeds
 	feedpointer.includeHistoricalEntries(); // tell the API we want to have old entries too
 	feedpointer.setNumEntries(limit_historial); //Google Feed API method: Limite de noticias a cargar
 	feedpointer.load(displayfeed); //Google Feed API method: Cargamos el Feed en displayedfeed
+	
 
 }
 
@@ -193,7 +236,7 @@ function boton_comentar(i){
 	var comentario=document.getElementById("text_comentario").value;
 	if(comentario==""){return;}
 	//PRIMERO debe de verificar si tiene cuenta...eso falta
-	if(name_usuario=="null"){alert("Primero debe de iniciar sesion para comentar!");return;}
+	if(name_usuario=="null"){alert("Primero debe de iniciar sesion para comentar! Si usted ya inició sesión es posible que haya sido inhabilitado de realizar comentarios");return;}
 	document.getElementById("text_comentario").value="";//limpiamos el input del comentario
 	
 	//faltaria colocarlo a la base de datos y usar el feed_link[i] para saber a que noticia le dio el coemntario
@@ -219,7 +262,7 @@ function imagen_cont(i){
 	img_content[i]="";
 	//Si no tiene imagenes, nosotros le colocamos una
 	if(contenido[0]=='<' && contenido[1]!='i'){
-		img_content[i]+="<img src='/img/noticias.jpg' class='content_img'>";
+		img_content[i]+="<img src='/imagenes/noticias.jpg' class='content_img'>";
 		return;}
 	//En caso tenga una
 	while(contenido[j]!='>'){
@@ -258,10 +301,17 @@ function display_banner(result){
 
 //--------------------Ejecutamos la funcion rssfeedsetup al iniciar la pagina-----------------------------
 window.onload=function(){
-	rssfeedsetup();//carga una sola vez
-	//setInterval carga varias veces la funcion en un determinado tiempo: segundos
-	//setTimeout(setInterval(rssfeedsetup,2000),2000);
-	//setTimeout(setInterval(rssfeedsetup_banner_derecho,0),2000);
+	var search = "";
+	var ruta=String( window.location.href );	
+	if(ruta.indexOf('?') != -1){
+		if(locationVars("search")){
+			search = locationVars ("search");
+			searchload(search);
+		}
+	}
+	if(search==""){
+		rssfeedsetup();//carga una sola vez
+	}
 	rssfeedsetup_banner_derecho();
 }
 </script>

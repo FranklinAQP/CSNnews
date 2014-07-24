@@ -17,6 +17,15 @@ function inicializarEventos(){
 	x.click(buscar_feed);
 }
 
+function searchload(search){
+	var palabra_buscar=search;
+	if(palabra_buscar==""){
+		alert("¿Qué es lo que desea buscar?");
+		return;}
+	var query="site:"+url_diario+" "+palabra_buscar;
+	google.feeds.findFeeds(query, mostrar_resultado);
+}
+
 /*-----------Ejecutamos los metodos de Google findFeed API-----------*/
 function buscar_feed(){
 	var palabra_buscar=$("#searchtext").val();

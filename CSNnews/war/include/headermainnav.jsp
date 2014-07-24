@@ -48,9 +48,12 @@
 				<nav id="mainnav">
 	        	<ul>
 	            	<li><a href="index.jsp" title="Inicio">Inicio</a></li>
-	            	<% if(!(session.getAttribute("email")==null)){ %>        	
+	            	<% if(!(session.getAttribute("email")==null)){ 
+						if(!((String)session.getAttribute("email")).equals("admin@admin")){	            	
+	            	%>        	
 	            	<li><a href="/perfil.jsp" title="Mi Perfil"><% out.println(session.getAttribute("email")); %></a></li>
-	            		<% if((Integer)session.getAttribute("nivel")==2){ %>  
+	            		<% }
+						if((Integer)session.getAttribute("nivel")==2){ %>  
 	            			<li><a href="/Administrar_RSS.jsp" title="Administrar RSS">adminRSS</a></li>
 	            			<li><a href="/Administrar_Usuarios.jsp" title="Administrar Usuarios">adminUsers</a></li>
 	            		<% } %>
@@ -64,11 +67,11 @@
 			</div>
 			<div class="contenedor_buscador">
 				<!-- aqui insertar formulario y codigo del buscador -->
-				<form id="searchform" action="#" method="post">
+				<form id="searchform" action="articulo.jsp" method="get">
 					
 					<input id="searchtext" class="search" type="search" name="search" required>
-					<input id="searchbtn" class="boton" value="search" type="button" name="buscar">
-					
+					<button id="searchbtn" class="boton" type="submit">buscar</button>
+					<!--<input id="searchbtn" class="boton submit" value="search" name="buscar"> type="button"   -->
 				</form>
 			</div>			
 		</div>   

@@ -20,19 +20,20 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					<div id="feeddiv"></div>						
-						<!-- Llamamos al archivo FindFeed.js para buscar las noticias -->
-						<script type="text/javascript">
-							<%@ include file="/JavaScript/FindFeeds.js" %>
-						</script>
-						
+					
 					<section class="other_content">
 					<div id="lcontain">
 			  			<h1>Administrar USUARIOS</h1>
 			  			<%
+			  			if(session.getAttribute("email")==null){
+				  			
+				  		}else if((Integer)session.getAttribute("nivel")==1){
+				  			
+				  		}else{		
 							JDO<Usuario> jdo=JDO.getInstance(Usuario.class);
 							List<Usuario> lista_usuarios=jdo.findAll();
 						 %>	
+						 
 			  			<table class='tconsulta'><thead><tr><th>Nro.</th><th>Correo</th><th>Username</th><th>Estado</th><th>Cuenta</th><th>Eliminar</th></tr></thead><tbody>
 						<%for(int i=0;i<lista_usuarios.size();i++){
 								Usuario user=(Usuario)lista_usuarios.get(i);
@@ -69,7 +70,7 @@
 						        </li>
 						    </ul>
 						</form>
-			  									
+			  	<% } %>
 			  		</div>	
 					</section>
 				

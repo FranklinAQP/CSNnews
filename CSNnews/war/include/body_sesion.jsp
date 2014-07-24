@@ -8,14 +8,7 @@
 			<section class="maincontent">
 				<section class="content">					
 					<div id="feeddiv">Loading...</div>						
-						<!-- Llamamos al archivo LoadFeed.js para cargar las noticias -->
-						<script type="text/javascript">
-							<%@ include file="/JavaScript/LoadFeed.js" %>
-						</script>
-						<!-- Llamamos al archivo FindFeed.js para buscar las noticias -->
-						<script type="text/javascript">
-							<%@ include file="/JavaScript/FindFeeds.js" %>
-						</script>
+						<!-- Aqui saldran las noticias -->
 						
 					<section class="article_content">	
 					<article>

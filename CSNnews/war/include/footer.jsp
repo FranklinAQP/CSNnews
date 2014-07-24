@@ -26,5 +26,13 @@ $(function() {
 });
 </script>
 </div>	
+					<!-- Llamamos al archivo LoadFeed.js para cargar las noticias -->
+					
+						<%@ include file="/JavaScript/LoadFeed.jsp" %>
+			
+					<!-- Llamamos al archivo FindFeed.js para buscar las noticias -->
+					<script type="text/javascript">
+						<%@ include file="/JavaScript/FindFeeds.js" %>
+					</script>
 </body>
 </html>

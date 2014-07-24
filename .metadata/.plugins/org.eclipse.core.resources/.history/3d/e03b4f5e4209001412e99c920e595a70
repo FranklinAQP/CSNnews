@@ -1,8 +1,0 @@
-function validar(pass_b) {
-    var pass_a = document.getElementById("pass_a").value;	
-    var errorMessage = 'El password ingresado no coincide con su password de verificación';
-    if (pass_a != pass_b) {
-        alert(errorMessage);
-        campo.focus();
-    } 
-}

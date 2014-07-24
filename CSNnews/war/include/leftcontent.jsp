@@ -30,11 +30,11 @@
 							
 							for(int i=0;i<lista_categoriass.size();i++){
 								String categoria=(String)lista_categoriass.get(i);
-								out.print("<li class='item1'><a href='#'>"+categoria+"<span>-</span></a><ul>");
+								out.print("<li class='item1'><a href='#'>"+categoria+"</a><ul>");
 								for(int j=0;j<lista_rsss.size();j++){
 									Rss rss=(Rss)lista_rsss.get(j);
 									if(rss.getCategoria().equals(categoria)){
-										out.print("<li class='subitem1'><a href='articulo.jsp?url="+rss.getURL()+"'>"+rss.getDiario()+"<span>5</span></a></li>");
+										out.print("<li class='subitem1'><a href='articulo.jsp?url="+rss.getURL()+"'>"+rss.getDiario()+"</a></li>");
 									}
 								}
 								out.print("</ul></li>");								
@@ -50,11 +50,11 @@
 					
 						<%for(int i=0;i<lista_categoriass.size();i++){
 								Categoria categoria=(Categoria)lista_categoriass.get(i);
-								out.print("<li class='item1'><a href='#'>"+categoria.getNombre()+"<span>"+session.getAttribute("nivel")+"</span></a><ul>");
+								out.print("<li class='item1'><a href='#'>"+categoria.getNombre()+"</a><ul>");
 								for(int j=0;j<lista_rsss.size();j++){
 									Rss rss=(Rss)lista_rsss.get(j);
 									if(rss.getCategoria().equals(categoria.getNombre())){
-										out.print("<li class='subitem1'><a href='articulo.jsp?url="+rss.getURL()+"'>"+rss.getDiario()+"<span>5</span></a></li>");
+										out.print("<li class='subitem1'><a href='articulo.jsp?url="+rss.getURL()+"'>"+rss.getDiario()+"</a></li>");
 									}
 								}
 								out.print("</ul></li>");

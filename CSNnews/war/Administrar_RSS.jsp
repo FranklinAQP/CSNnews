@@ -19,19 +19,21 @@
 			<!-- contenido central -->			
 			<section class="maincontent">
 				<section class="content">					
-					<div id="feeddiv"></div>						
-						<!-- Llamamos al archivo FindFeed.js para buscar las noticias -->
-						<script type="text/javascript">
-							<%@ include file="/JavaScript/FindFeeds.js" %>
-						</script>
-						
+					
 					<section class="other_content">
 					<div id="lcontain">
-			  			<h1>Administrar DIARIOS</h1>
+			  			<h1>Administrar DIARIOS</h1> 
 			  			<%
+			  		if(session.getAttribute("email")==null){
+			  			
+			  		}else if((Integer)session.getAttribute("nivel")==1){
+			  			
+			  		}else{
+			  			
 							JDO<Diario> jdo=JDO.getInstance(Diario.class);
 							List<Diario> lista_diarios=jdo.findAll();
 						 %>	
+						
 			  			<table class='tconsulta'><thead><tr><th>Nro.</th><th>Nombre del Diario</th><th>URL</th><th>Eliminar</th></tr></thead><tbody>
 						<%for(int i=0;i<lista_diarios.size();i++){
 								Diario diario=(Diario)lista_diarios.get(i);
@@ -129,7 +131,7 @@
 						    </ul>
 						</form>
 						
-						
+				<% }%>		
 			  		</div>	
 					</section>
 				
